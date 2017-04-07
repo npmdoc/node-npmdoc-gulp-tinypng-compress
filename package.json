@@ -1,17 +1,40 @@
 {
-    "buildNpmdoc":"gulp-tinypng-compress",
+    "author": "kai zhu <kaizhu256@gmail.com>",
+    "buildNpmdoc": "gulp-tinypng-compress",
+    "description": "api documentation for [gulp-tinypng-compress (v1.2.1)](https://github.com/stnvh/gulp-tinypng-compress#readme) [![npm package](https://img.shields.io/npm/v/npmdoc-gulp-tinypng-compress.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-gulp-tinypng-compress) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-gulp-tinypng-compress.svg)](https://travis-ci.org/npmdoc/node-npmdoc-gulp-tinypng-compress)",
     "devDependencies": {
-        "gulp-tinypng-compress": "*",
         "electron-lite": "kaizhu256/node-electron-lite#alpha",
+        "gulp-tinypng-compress": "*",
         "utility2": "kaizhu256/node-utility2#alpha"
     },
-    "name":"npmdoc-gulp-tinypng-compress",
+    "engines": {
+        "node": ">=4.0"
+    },
+    "homepage": "https://github.com/npmdoc/node-npmdoc-gulp-tinypng-compress",
+    "keywords": [
+        "documentation",
+        "gulp-tinypng-compress"
+    ],
+    "license": "MIT",
+    "main": "lib.npmdoc_gulp_tinypng_compress.js",
+    "name": "npmdoc-gulp-tinypng-compress",
+    "nameAlias": "npmdoc_gulp_tinypng_compress",
+    "nameOriginal": "npmdoc-gulp-tinypng-compress",
+    "os": [
+        "darwin",
+        "linux"
+    ],
     "repository": {
         "type": "git",
         "url": "https://github.com/npmdoc/node-npmdoc-gulp-tinypng-compress"
     },
     "scripts": {
-        "build-ci": "utility2 shReadmeTest build_ci.sh"
+        "build-ci": "utility2 shReadmeTest build_ci.sh",
+        "env": "env",
+        "heroku-postbuild": "(set -e; npm install \"kaizhu256/node-utility2#alpha\"; utility2 shDeployHeroku)",
+        "postinstall": "if [ -f npm_scripts.sh ]; then ./npm_scripts.sh postinstall; fi",
+        "start": "(set -e; export PORT=${PORT:-8080}; utility2 start test.js)",
+        "test": "(set -e; export PORT=$(utility2 shServerPortRandom); utility2 test test.js)"
     },
     "version": "0.0.1"
 }
