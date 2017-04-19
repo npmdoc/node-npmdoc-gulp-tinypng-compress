@@ -1,9 +1,14 @@
-# api documentation for  [gulp-tinypng-compress (v1.2.1)](https://github.com/stnvh/gulp-tinypng-compress#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-gulp-tinypng-compress.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-gulp-tinypng-compress) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-gulp-tinypng-compress.svg)](https://travis-ci.org/npmdoc/node-npmdoc-gulp-tinypng-compress)
+# npmdoc-gulp-tinypng-compress
+
+#### api documentation for  [gulp-tinypng-compress (v1.2.1)](https://github.com/stnvh/gulp-tinypng-compress#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-gulp-tinypng-compress.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-gulp-tinypng-compress) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-gulp-tinypng-compress.svg)](https://travis-ci.org/npmdoc/node-npmdoc-gulp-tinypng-compress)
+
 #### TinyPNG API wrapper for compressing PNG & JPG images
 
-[![NPM](https://nodei.co/npm/gulp-tinypng-compress.png?downloads=true)](https://www.npmjs.com/package/gulp-tinypng-compress)
+[![NPM](https://nodei.co/npm/gulp-tinypng-compress.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/gulp-tinypng-compress)
 
-[![apidoc](https://npmdoc.github.io/node-npmdoc-gulp-tinypng-compress/build/screenCapture.buildNpmdoc.browser._2Fhome_2Ftravis_2Fbuild_2Fnpmdoc_2Fnode-npmdoc-gulp-tinypng-compress_2Ftmp_2Fbuild_2Fapidoc.html.png)](https://npmdoc.github.io/node-npmdoc-gulp-tinypng-compress/build/apidoc.html)
+- [https://npmdoc.github.io/node-npmdoc-gulp-tinypng-compress/build/apidoc.html](https://npmdoc.github.io/node-npmdoc-gulp-tinypng-compress/build/apidoc.html)
+
+[![apidoc](https://npmdoc.github.io/node-npmdoc-gulp-tinypng-compress/build/screenCapture.buildCi.browser.%252Ftmp%252Fbuild%252Fapidoc.html.png)](https://npmdoc.github.io/node-npmdoc-gulp-tinypng-compress/build/apidoc.html)
 
 ![npmPackageListing](https://npmdoc.github.io/node-npmdoc-gulp-tinypng-compress/build/screenCapture.npmPackageListing.svg)
 
@@ -18,7 +23,6 @@
 {
     "author": {
         "name": "Stan Hutcheon",
-        "email": "stanutcheon@me.com",
         "url": "https://github.com/stnvh"
     },
     "bugs": {
@@ -27,7 +31,6 @@
     "contributors": [
         {
             "name": "Gaurav Jassal",
-            "email": "gaurav@jassal.me",
             "url": "http://gaurav.jassal.me"
         }
     ],
@@ -70,13 +73,11 @@
     "main": "index.js",
     "maintainers": [
         {
-            "name": "stnvh",
-            "email": "stanhutcheon@me.com"
+            "name": "stnvh"
         }
     ],
     "name": "gulp-tinypng-compress",
     "optionalDependencies": {},
-    "readme": "ERROR: No README data found!",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/stnvh/gulp-tinypng-compress.git"
@@ -87,16 +88,6 @@
     "version": "1.2.1"
 }
 ```
-
-
-
-# <a name="apidoc.tableOfContents"></a>[table of contents](#apidoc.tableOfContents)
-
-#### [module gulp-tinypng-compress](#apidoc.module.gulp-tinypng-compress)
-
-
-
-# <a name="apidoc.module.gulp-tinypng-compress"></a>[module gulp-tinypng-compress](#apidoc.module.gulp-tinypng-compress)
 
 
 
