@@ -61,12 +61,159 @@
 
     <li class="apidocModuleLi"><a href="#apidoc.module.gulp-tinypng-compress">module gulp-tinypng-compress</a><ol>
 
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-tinypng-compress.gulp-tinypng-compress">
+            function <span class="apidocSignatureSpan"></span>gulp-tinypng-compress
+            <span class="apidocSignatureSpan">(opt, obj)</span>
+            </a>
+
+        </li>
+
     </ol></li>
 
 </ol></div>
 
 <div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.gulp-tinypng-compress" id="apidoc.module.gulp-tinypng-compress">module gulp-tinypng-compress</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-tinypng-compress.gulp-tinypng-compress" id="apidoc.element.gulp-tinypng-compress.gulp-tinypng-compress">
+        function <span class="apidocSignatureSpan"></span>gulp-tinypng-compress
+        <span class="apidocSignatureSpan">(opt, obj)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function TinyPNG(opt, obj) {
+
+    var self = this;
+
+    this.conf = {
+        token: null,
+        options: {
+            key: &#x27;&#x27;,
+            sigFile: false,
+            log: false,
+            force: false, ignore: false,
+            sameDest: false,
+            summarize: false,
+            parallel: true,
+            parallelMax: 5
+        }
+    };
+
+    this.stats = {
+        total: {
+            in: 0,
+            out: 0
+        },
+        compressed: 0,
+        skipped: 0
+    };
+
+    this.init = function(opt) {
+        if(typeof opt !== &#x27;object&#x27;) opt = { key: opt };
+
+        opt = util._extend(this.conf.options, opt);
+
+        if(!opt.key) throw new PluginError(PLUGIN_NAME, &#x27;Missing API key!&#x27;);
+
+        if(!opt.force) opt.force = gutil.env.force || false; // force match glob
+        if(!opt.ignore) opt.ignore = gutil.env.ignore || false; // ignore match glob
+
+        if(opt.summarise) opt.summarize = true; // chin chin, old chap!
+
+        this.conf.options = opt; // export opts
+
+        this.conf.token = new Buffer(&#x27;api:&#x27; + opt.key).toString(&#x27;base64&#x27;); // prep key
+        this.hash = new this.hasher(opt.sigFile).populate(); // init hasher class
+
+        return this;
+    };
+
+    this.stream = function() {
+        var self = this,
+            opt = this.conf.options,
+            emitted = false;
+
+        return (opt.parallel ? throughParallel : through).obj({maxConcurrency: opt.parallelMax}, function(file, enc, cb) {
+            if(self.utils.glob(file, opt.ignore)) return cb();
+
+            if(file.isNull()) {
+                return cb();
+            }
+
+            if(file.isStream()) {
+                this.emit(&#x27;error&#x27;, new PluginError(PLUGIN_NAME, &#x27;Streams not supported&#x27;));
+                return cb();
+            }
+
+            if(file.isBuffer()) {
+                var hash = null;
+
+                if(opt.sigFile &#x26;&#x26; !self.utils.glob(file, opt.force)) {
+                    var result = self.hash.compare(file);
+
+                    hash = result.hash;
+
+                    if(result.match) {
+                        self.utils.log(&#x27;[skipping] &#x27; + chalk.green(&#x27;✔ &#x27;) + file.relative);
+                        self.stats.skipped++;
+
+                        return cb();
+                    }
+                }
+
+                self.request(file).get(function(err, tinyFile) {
+                    if(err) {
+                        this.emit(&#x27;error&#x27;, new PluginError(PLUGIN_NAME, err));
+                        return cb();
+                    }
+
+                    self.utils.log(&#x27;[compressing] &#x27; + chalk.green(&#x27;✔ &#x27;) + file.relative + chalk.gray(&#x27; (done)&#x27;));
+                    self.stats.compressed++;
+
+                    self.stats.total.in += file.contents.toString().length;
+                    self.stats.total.out += tinyFile.contents.toString().length;
+
+                    if(opt.sigFile) {
+                        var curr = {
+                            file: file,
+                            hash: hash
+                        };
+
+                        if(opt.sameDest) {
+                            curr.file = tinyFile;
+                            curr.hash = self.hash.calc(tinyFile);
+                        }
+
+                        self.hash.update(curr.file, curr.hash);
+                    }
+
+                    this.push(tinyFile);
+
+                    return cb();
+                }.bind(this)); // maintain stream context
+            }
+        })
+        .on(&#x27;error&#x27;, function(err) {
+            emitted = true; // surely a method in the stream to handle this?
+            self.stats.skipped++;
+            self.utils.log(err.message);
+        })
+        .on(&#x27;end&#x27;, function() {
+            if(!emitted &#x26;&#x26; opt.sigFile) self.hash.write(); // write sigs after complete
+            if(opt.summarize) {
+                var stats = self.stats,
+                    info = util.format(&#x27;Skipped: %s image%s, Compressed: %s image%s, Savings: %s (ratio: %s)&#x27;,
+                        stats.skipped,
+                        stats.skipped == 1 ? &#x27;&#x27; : &#x27;s&#x27;,
+                        stats.compressed,
+                        stats.compressed == ...</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
 
 </div>
 

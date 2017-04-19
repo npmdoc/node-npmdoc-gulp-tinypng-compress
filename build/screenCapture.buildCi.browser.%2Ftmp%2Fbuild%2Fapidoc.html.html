@@ -1,4 +1,4 @@
-<div class="apidocDiv">
+<html><head></head><body><div class="apidocDiv">
 <style>
 /*csslint
 */
@@ -47,17 +47,10 @@
 }
 </style>
 <h1>api documentation for
-    <a
-
-        href="https://github.com/stnvh/gulp-tinypng-compress#readme"
-
-    >gulp-tinypng-compress (v1.2.1)</a>
+    <a href="https://github.com/stnvh/gulp-tinypng-compress#readme">gulp-tinypng-compress (v1.2.1)</a>
 </h1>
-<h4>TinyPNG API wrapper for compressing PNG & JPG images</h4>
-<div class="apidocSectionDiv"><a
-    href="#apidoc.tableOfContents"
-    id="apidoc.tableOfContents"
-><h1>table of contents</h1></a><ol>
+<h4>TinyPNG API wrapper for compressing PNG &amp; JPG images</h4>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
 
     <li class="apidocModuleLi"><a href="#apidoc.module.gulp-tinypng-compress">module gulp-tinypng-compress</a><ol>
 
@@ -92,7 +85,7 @@
     this.conf = {
         token: null,
         options: {
-            key: &#x27;&#x27;,
+            key: '',
             sigFile: false,
             log: false,
             force: false, ignore: false,
@@ -113,11 +106,11 @@
     };
 
     this.init = function(opt) {
-        if(typeof opt !== &#x27;object&#x27;) opt = { key: opt };
+        if(typeof opt !== 'object') opt = { key: opt };
 
         opt = util._extend(this.conf.options, opt);
 
-        if(!opt.key) throw new PluginError(PLUGIN_NAME, &#x27;Missing API key!&#x27;);
+        if(!opt.key) throw new PluginError(PLUGIN_NAME, 'Missing API key!');
 
         if(!opt.force) opt.force = gutil.env.force || false; // force match glob
         if(!opt.ignore) opt.ignore = gutil.env.ignore || false; // ignore match glob
@@ -126,7 +119,7 @@
 
         this.conf.options = opt; // export opts
 
-        this.conf.token = new Buffer(&#x27;api:&#x27; + opt.key).toString(&#x27;base64&#x27;); // prep key
+        this.conf.token = new Buffer('api:' + opt.key).toString('base64'); // prep key
         this.hash = new this.hasher(opt.sigFile).populate(); // init hasher class
 
         return this;
@@ -145,20 +138,20 @@
             }
 
             if(file.isStream()) {
-                this.emit(&#x27;error&#x27;, new PluginError(PLUGIN_NAME, &#x27;Streams not supported&#x27;));
+                this.emit('error', new PluginError(PLUGIN_NAME, 'Streams not supported'));
                 return cb();
             }
 
             if(file.isBuffer()) {
                 var hash = null;
 
-                if(opt.sigFile &#x26;&#x26; !self.utils.glob(file, opt.force)) {
+                if(opt.sigFile &amp;&amp; !self.utils.glob(file, opt.force)) {
                     var result = self.hash.compare(file);
 
                     hash = result.hash;
 
                     if(result.match) {
-                        self.utils.log(&#x27;[skipping] &#x27; + chalk.green(&#x27;✔ &#x27;) + file.relative);
+                        self.utils.log('[skipping] ' + chalk.green('âœ” ') + file.relative);
                         self.stats.skipped++;
 
                         return cb();
@@ -167,11 +160,11 @@
 
                 self.request(file).get(function(err, tinyFile) {
                     if(err) {
-                        this.emit(&#x27;error&#x27;, new PluginError(PLUGIN_NAME, err));
+                        this.emit('error', new PluginError(PLUGIN_NAME, err));
                         return cb();
                     }
 
-                    self.utils.log(&#x27;[compressing] &#x27; + chalk.green(&#x27;✔ &#x27;) + file.relative + chalk.gray(&#x27; (done)&#x27;));
+                    self.utils.log('[compressing] ' + chalk.green('âœ” ') + file.relative + chalk.gray(' (done)'));
                     self.stats.compressed++;
 
                     self.stats.total.in += file.contents.toString().length;
@@ -197,18 +190,18 @@
                 }.bind(this)); // maintain stream context
             }
         })
-        .on(&#x27;error&#x27;, function(err) {
+        .on('error', function(err) {
             emitted = true; // surely a method in the stream to handle this?
             self.stats.skipped++;
             self.utils.log(err.message);
         })
-        .on(&#x27;end&#x27;, function() {
-            if(!emitted &#x26;&#x26; opt.sigFile) self.hash.write(); // write sigs after complete
+        .on('end', function() {
+            if(!emitted &amp;&amp; opt.sigFile) self.hash.write(); // write sigs after complete
             if(opt.summarize) {
                 var stats = self.stats,
-                    info = util.format(&#x27;Skipped: %s image%s, Compressed: %s image%s, Savings: %s (ratio: %s)&#x27;,
+                    info = util.format('Skipped: %s image%s, Compressed: %s image%s, Savings: %s (ratio: %s)',
                         stats.skipped,
-                        stats.skipped == 1 ? &#x27;&#x27; : &#x27;s&#x27;,
+                        stats.skipped == 1 ? '' : 's',
                         stats.compressed,
                         stats.compressed == ...</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -223,3 +216,4 @@
     ]
 </div>
 </div>
+</body></html>
